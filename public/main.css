@@ -1,0 +1,77 @@
+div#control_setup input, div#control_setup button{
+    width:80%;
+    height:100px;
+    line-height:1;
+    font-size:30px;
+}
+div#control_setup{
+    font-size:30px;
+}
+
+
+body{
+    font-size: 12px;
+    font-family: 'Dosis', sans-serif;
+    color:#337ab7;
+    background-image:url("images/back.png");
+    padding:20px 0px;
+}
+
+div, p{
+    text-align:center;
+}
+
+div.notification{
+    font-size:16px;
+    margin: 10px 10px;
+}
+
+p#reason{
+    max-width:80%;
+}
+
+hr{
+    max-width:50%;
+    margin:20px auto;
+    display:none;
+    border: 0;
+    border-bottom: 1px dashed white;
+    background: #337ab7;
+}
+
+
+div#jump, #multi_menu{
+    display:none;
+}
+
+input, select{
+    min-width:29%;
+    line-height:4;
+    font-family: 'Dosis', sans-serif;
+    margin: 10px 10px;
+    padding:2px 10px;
+}
+
+select{
+    height:20px;
+}
+button{
+    background-color:#337ab7;
+    border: 1px solid #2e6da4;
+    color: #ffffff;
+    min-width:30%;
+    font-family: 'Dosis', sans-serif;
+    line-height:4;
+    margin:10px 10px;
+}
+
+button:hover{
+    cursor:pointer;
+    background-color:#2e6da4;
+}
+
+button#jump_btn{
+    width:90vw;
+    height:90vh;
+    line-height:1;
+}

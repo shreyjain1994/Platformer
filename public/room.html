@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Runner Up: Lobby Setup</title>
+    <link href='https://fonts.googleapis.com/css?family=Dosis:700'
+          rel='stylesheet' type='text/css'>
+    <link href="main.css" type="text/css" rel="stylesheet">
+    <link href="game.css" type="text/css" rel="stylesheet">
+    <script src="jquery-2.1.0.js"></script>
+    <script src="game.js"></script>
+    <script src="room.js"></script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="title">
+        <img src="images/setup_main.png">
+        <h1>RUNNER UP</h1>
+        <h2>ROOM SETUP</h2>
+    </div>
+    <div>
+        <div>
+            <button id="single">SINGLE PLAYER</button>
+        </div>
+        <div>
+            <button id="multi">MULTI PLAYER</button>
+        </div>
+        <div id="multi_menu">
+            <div>
+            <select id="player_number">
+                <option value="2">2 Players</option>
+                <option value="3">3 Players</option>
+                <option value="4">4 Players</option>
+            </select>
+            </div>
+            <div>
+            <button id="create">CREATE ROOM</button>
+            </div>
+            <div>
+                <button id="back">BACK</button>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="notification" id="room_number">
+    </div>
+    <div class="notification" id="connection">
+    </div>
+    <div class="notification" id="connected">
+    </div>
+</div>
+
+</body>
+</html>
