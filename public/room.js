@@ -31,7 +31,7 @@ function doc_ready() {
  */
 function handle_sockets() {
 
-    socket = new WebSocket("ws://" + url + wss_port, "room");
+    socket = new WebSocket("ws://" + url + ":" + wss_port, "room");
 
     /**
      * Reacts to a message received from the server.

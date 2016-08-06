@@ -8,6 +8,7 @@ var right; //is phone tilted towards right
 var left; //is phone tilted towards left
 var wss_port = 10101; //port that the websocket is listening on
 var app_port = 10100; //port that the app is listening on
+var url = "platformer.shreyjain.ca"
 
 $(document).ready(doc_ready);
 
@@ -28,7 +29,7 @@ function doc_ready() {
  */
 function handle_sockets() {
 
-    socket = new WebSocket("ws://cslinux.utm.utoronto.ca:" + wss_port, "control");
+    socket = new WebSocket("ws://" + url + ":" + wss_port, "control");
 
     /**
      * Responds the messages from the server.
@@ -54,29 +55,29 @@ function handle_sockets() {
             if (data["reason"] == "room_full") {
                 $("#reason").html("Room " + data["room_id"] + " is full. You" +
                     " can go open your own room" +
-                    " to play at http://cslinux.utm.utoronto.ca:" + app_port);
+                    " to play at " + url);
             }
             else if (data["reason"] == "username_taken") {
                 $("#reason").html("Someone in Room " + data["room_id"] + " has already chosen that display name. Please choose another one.");
             }
             else if (data["reason"] == "no_such_room") {
                 $("#reason").html("Room " + data["room_id"] + " doesn't" +
-                    " exist. You can go open a room at" +
-                    " http://cslinux.utm.utoronto.ca:" + app_port);
+                    " exist. You can go open a room at " +
+                    url);
             }
         }
 
         //the room was disconnected
         else if (data["type"] == "room_disconnect") {
-            alert("The room that you were in has been disconnected. Go to" +
-                " http://cslinux.utm.utoronto.ca:" + app_port + " to start a new room.");
+            alert("The room that you were in has been disconnected. Go to " +
+                url + " to start a new room.");
 
-            window.location.href = "http://cslinux.utm.utoronto.ca:" + app_port + "/control";
+            window.location.href = url + "/control";
 
         }
 
         if (event.data == "down"){
-            window.location.href = "http://cslinux.utm.utoronto.ca:" + app_port + "/down";
+            window.location.href = url + "/down";
         }
 
     }
