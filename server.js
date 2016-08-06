@@ -5,7 +5,7 @@ var WebSocketServer = require('ws').Server;
 var wss_port = 10101;
 var app_port = 10100;
 var wss = new WebSocketServer({port: wss_port});
-app.use(express.static("/student/jainshre/www/public"));
+app.use(express.static(path.join(__dirname, "public")));
 var connections = {};
 var connectionIDCounter = 10000;
 var sendData;
@@ -15,18 +15,18 @@ var data;
  * Handles get requests to base url.
  */
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + '/public/room.html'));
+    res.sendFile(path.join(__dirname,"public/room.html"));
 });
 
 /**
  * Handles get requests to the control.
  */
 app.get('/control', function (req, res) {
-    res.sendFile(path.join(__dirname + '/public/control.html'));
+    res.sendFile(path.join(__dirname, 'public/control.html'));
 });
 
 app.get('/down', function (req, res) {
-    res.sendFile(path.join(__dirname + '/public/down.html'));
+    res.sendFile(path.join(__dirname, 'public/down.html'));
 });
 
 /**
