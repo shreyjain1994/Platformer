@@ -9,6 +9,7 @@ var stringData;
 var started;
 var wss_port = 10101; //port that the ws is listening on
 var app_port = 10100; //port that the app is listening on
+var url = "platformer.shreyjain.ca"
 
 $(document).ready(doc_ready);
 
@@ -30,7 +31,7 @@ function doc_ready() {
  */
 function handle_sockets() {
 
-    socket = new WebSocket("ws://cslinux.utm.utoronto.ca:" + wss_port, "room");
+    socket = new WebSocket("ws://" + url + wss_port, "room");
 
     /**
      * Reacts to a message received from the server.
@@ -68,8 +69,7 @@ function handle_sockets() {
             //display has connected and has been given a room number - no response
             if (data["type"] == "room_connect") {
                 $("#room_number").html("Connect at:" +
-                    " http://cslinux.utm.utoronto.ca:10100/control<br><br>Connect to" +
-                    " the" +
+                    url + "/control<br><br>Connect to the" +
                     " following game room: " + data["room_id"]);
                 $("#connection").html("Awaiting connection from " + (numberOfPlayers - connected_number) + " player(s).")
             }
@@ -130,7 +130,7 @@ function handle_sockets() {
         }
 
         if (event.data == "down"){
-            window.location.href = "http://cslinux.utm.utoronto.ca:" + app_port + "/down";
+            window.location.href = "http://" + url + "/down";
         }
     }
 }
