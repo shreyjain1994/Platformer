@@ -1,0 +1,11 @@
+- lobby should see a loading symbol while connecting to the server
+- lobby should be able to start a lobby
+- lobby should see a loading symbol while starting a lobby
+- lobby should be able to close a started lobby while waiting for players
+- lobby should see a loading symbol while closing a started lobby
+- lobby should NOT accept player connections if the lobby hasn't started
+- lobby should possibly accept player connections if the lobby is started
+- lobby should NOT accept player connections if the lobby is full
+- lobby should NOT accept player connections if the game has started
+- lobby should NOT accept player connections if another player is connected with the same username
+- lobby should be able to close a started lobby once the game has started

@@ -1,0 +1,12 @@
+DONE - player should see a loading symbol while connecting to the server
+DONE - player should be able to join a lobby that has been created
+DONE - player should NOT be able to join a lobby that has not been created
+DONE - player should NOT be able to join a lobby that is full
+DONE - player should NOT be able to join a lobby where the game has already begun
+DONE - player should see a loading symbol while connecting to the lobby
+- player should see a waiting for game to start message when connected to a lobby, but the game has not started
+DONE - player should be able to leave a lobby once they've joined one
+DONE - player should see a loading symbol while leaving a lobby
+- player should NOT see a waiting message once the game has started
+DONE - player should be kicked out of the lobby if the lobby is closed/disconnected
+- player should receive an alert if not connecting with a mobile device with orientation API

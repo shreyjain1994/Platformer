@@ -1,0 +1,34 @@
+.container{
+    padding:20px;
+}
+
+.toolbar{
+    padding:10px 0;
+}
+
+.toolbar span{
+    vertical-align:middle;
+}
+
+div#game{
+    position:relative;
+    box-sizing:border-box;
+    height:100vh;
+    width:100vw;
+}
+
+body{
+    color:#337ab7;
+}
+
+.center{
+    text-align:center;
+}
+
+hr{
+    border-bottom: 1px dashed #337ab7;
+}
+
+#setup, #controls, #game, #lobby{
+    display:none;
+}

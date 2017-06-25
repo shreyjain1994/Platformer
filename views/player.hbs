@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <title>Runner Up</title>
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <link href="https://file.myfontastic.com/xPCFgAh3YZPCMfwhG8kVRG/icons.css" rel="stylesheet">
+
+    <link href="{{static 'css/bundle.css'}}" type="text/css" rel="stylesheet">
+    <script src="{{static 'js/jquery-2.1.0.js'}}"></script>
+    <script src="{{static 'js/player/bundle.js'}}"></script>
+
+</head>
+<body style="background-image: url('{{static 'images/background.png'}}')">
+<div class="container">
+    <div id="loader">
+        <div class="row center">
+            <img src="{{static 'images/loader.svg'}}">
+        </div>
+        <div class="row center">
+            <p id="loaderMessage">Connecting to server.
+            </p>
+        </div>
+    </div>
+    <div id="setup">
+        <div class="row center">
+            <img src="{{static 'images/setup_main.png'}}">
+        </div>
+        <div class="row center">
+            <h1>RUNNER UP</h1>
+        </div>
+        <div class="row">
+            <form id="joinLobby">
+                <input type="text" name="lobbyId" placeholder="Lobby ID" class="u-full-width">
+                <input type="text" name="username" placeholder="Display Name" class="u-full-width">
+                <input type="submit" value="Join Lobby" id="joinLobbySubmit" class="u-full-width button-primary">
+                <p id="joinLobbyResponse" class="center"></p>
+            </form>
+        </div>
+
+    </div>
+    <div id="controls">
+        <div class="toolbar row">
+            <span class="icon icon-leave-lobby" title="Leave Lobby" id="leaveLobby"></span>
+        </div>
+        <div class="row">
+            <button class='button-primary u-full-width' id="jump">JUMP</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

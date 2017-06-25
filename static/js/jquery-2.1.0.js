@@ -597,7 +597,7 @@ var i,
 		return 0;
 	},
 
-	// General-purpose constants
+	// General-purpose settings
 	strundefined = typeof undefined,
 	MAX_NEGATIVE = 1 << 31,
 

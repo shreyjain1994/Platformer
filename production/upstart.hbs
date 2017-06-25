@@ -1,0 +1,15 @@
+# Upstart script for the platformer game
+# Modify the uid, gid and path to the root directory of the project if needed
+# Copy this file to the /etc/init directory and start the service with the command "sudo service platformer start"
+
+description "API server for the platformer game"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+setuid {{user}}
+setgid {{group}}
+chdir {{rootDir}}
+
+exec npm run start-prod

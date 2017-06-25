@@ -1,0 +1,33 @@
+# nginx server block for the platformer game
+
+# express application
+server {
+    listen 80;
+
+    server_name {{host}};
+    client_max_body_size 1m;
+
+    location {{path}} {
+        proxy_pass http://localhost:{{port}};
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+# websocket application
+server {
+    listen 80;
+
+    server_name {{host}};
+    client_max_body_size 1m;
+
+    location {{websocketPath}} {
+        proxy_pass http://localhost:{{websocketPort}};
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}

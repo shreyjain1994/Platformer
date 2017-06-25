@@ -2,24 +2,51 @@
   "name": "platformer",
   "version": "1.0.0",
   "description": "A multi-player platformer game using HTML5 canvas.",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "NODE_ENV=development gulp start | bunyan",
+    "start-prod": "NODE_ENV=production node index.js",
+    "build": "NODE_ENV=production gulp build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shreyjain1994/Platformer.git"
+    "url": "git+https://github.com/shreyjain1994/platformer.git"
   },
   "author": "Shrey Jain",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/shreyjain1994/Platformer/issues"
+    "url": "https://github.com/shreyjain1994/platformer/issues"
   },
-  "homepage": "https://github.com/shreyjain1994/Platformer#readme",
+  "homepage": "https://github.com/shreyjain1994/platformer#readme",
   "dependencies": {
+    "assert-plus": "^1.0.0",
+    "bunyan": "^1.8.10",
+    "bunyan-syslog-unixdgram": "^1.0.2",
     "express": "^4.14.0",
-    "path": "^0.12.7",
+    "express-handlebars": "^3.0.0",
+    "imgloader": "^1.0.0",
+    "lodash.merge": "^4.6.0",
+    "settings": "git+ssh://git@github.com/shreyjain1994/node-settings.git",
+    "shortid": "^2.2.8",
+    "url-join": "^2.0.2",
     "ws": "^1.1.1"
+  },
+  "devDependencies": {
+    "browserify": "^14.4.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.4.0",
+    "gulp-compile-handlebars": "^0.6.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-hash": "^4.1.1",
+    "gulp-imagemin": "^3.2.0",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0",
+    "gulp-webpack": "^1.5.0",
+    "pump": "^1.0.2",
+    "userid": "^0.3.1",
+    "webpack": "^2.6.1"
   }
 }
