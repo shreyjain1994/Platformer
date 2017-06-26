@@ -35,8 +35,8 @@ function joinLobby(event) {
     event.preventDefault();
     displayLoader('Joining lobby.');
     var data = utils.serializeObject($(this));
-    socket.send(actions.JOIN_LOBBY + ' ' + data.lobbyId + ' ' + data.username);
     gameStarted=false;
+    socket.send(actions.JOIN_LOBBY + ' ' + data.lobbyId + ' ' + data.username);
 }
 
 function displayLoader(message) {

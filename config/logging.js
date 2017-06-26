@@ -23,6 +23,7 @@ if (settings.logging.console.use){
 if (settings.logging.syslog.use){
     options.streams.push({
         level:settings.logging.syslog.level,
+        type:'raw',
         stream: new SyslogStream({
             name: settings.logging.name
         })

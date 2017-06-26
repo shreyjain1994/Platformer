@@ -172,6 +172,7 @@ function handleWebsocket() {
                 updateLobby();
                 socket.send(actions.JOIN_LOBBY_ACCEPT + ' ' + id);
                 if (game.currentNumberOfPlayers() === game.numberOfPlayers) {
+                    socket.send(actions.GAME_STARTED);
                     game.start();
                     displayGame();
                 }
