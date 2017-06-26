@@ -3,11 +3,10 @@ var path = require('path');
 /**
  * Static file settings for the application.
  * @typedef {object} AppStaticSettings
- * @property {string} host - The host at which the static resources are available.
- * @property {string} path - The URL path at which static resources should be mounted.
- * @property {string} url - The URL at which the root directory of the static resources is located.
+ * @property {string} path - The URL path at which static resources should be mounted. Only required if express is serving the static files.
+ * @property {string} url - Base URL which will be attached to front of URL of all static resources
  * @property {boolean} use - Whether to use express to serve the static resources.
- * @property {string} root - Path to the directory containing the static resources.
+ * @property {string} root - Path to the directory containing the static resources. Only required if express is serving the static files.
  * @property {string} manifest - Path to the manifest of static files.
  * @property {boolean} useManifest - Whether to use the manifest when generating URLs for static resources.
  */
@@ -27,18 +26,16 @@ var path = require('path');
 /**
  * Websocket settings for the application.
  * @typedef {object} WebsocketSettings
- * @property {string} path - The URL path at which the websocket application will listen at. This is really only included for nginx purposes. The actual websocket server doesn't utilize this at all.
  * @property {number} port - The port the websocket server will listen at.
- * @property {string} url - The URL link which can be used to connect to the websocket server.
+ * @property {string} url - The URL for the websocket server.
  */
 
 /**
  * All settings for the application.
  * @typedef {Object} AppSettings
- * @property {string} host - The host at which the express and websocket applications are available.
  * @property {string} path - The URL path at which the express application should be mounted.
  * @property {number} port - The port the express server will listen at.
- * @property {string} url - The overall URL at which the express application is listening at.
+ * @property {string} url - The URL for the express server.
  * @property {WebsocketSettings} websocket
  * @property {AppStaticSettings} static
  * @property {AppLoggingSettings} logging
@@ -48,17 +45,14 @@ var path = require('path');
  * @type {AppSettings}
  */
 module.exports = {
-    host:'localhost',
     path:'/',
     port:10100,
     url:'http://localhost:10100/',
     websocket:{
-        path:'/websocket',
         port:10101,
         url:'ws://localhost:10101/websocket'
     },
     static: {
-        host:'localhost',
         path:'/static',
         url:'http://localhost:10100/static',
         use: true,
