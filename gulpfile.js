@@ -1,5 +1,4 @@
 var path = require('path');
-var userid = require('userid');
 var settings = require('./settings');
 var fs = require('fs');
 var pump = require('pump');
@@ -9,7 +8,6 @@ var webpack = require('webpack');
 
 var gulp = require('gulp');
 var nodemon = require('gulp-nodemon');
-var handlebars = require('gulp-compile-handlebars');
 var rename = require('gulp-rename');
 var cleanCSS = require('gulp-clean-css');
 var hash = require('gulp-hash');
@@ -22,43 +20,7 @@ gulp.task('clean-build', function(){
     return del(['build']);
 });
 
-gulp.task('build', ['build-static', 'build-production']);
-
-gulp.task('build-production', ['nginx', 'upstart']);
-
-gulp.task('nginx', ['clean-build'], function (done) {
-
-    var data = {
-        port:settings.port,
-        host:settings.host,
-        path:settings.path,
-        websocketPort:settings.websocket.port,
-        websocketPath:settings.websocket.path
-    };
-
-    pump([
-        gulp.src('production/nginx.hbs'),
-        handlebars(data),
-        rename('platformer'),
-        gulp.dest('build/production')
-    ], done);
-});
-
-gulp.task('upstart', ['clean-build'], function (done) {
-
-    var upstartData = {
-        rootDir: __dirname,
-        user: userid.username(process.getuid()),
-        group: userid.groupname(process.getgid())
-    };
-
-    pump([
-        gulp.src('production/upstart.hbs'),
-        handlebars(upstartData),
-        rename('platformer.conf'),
-        gulp.dest('build/production')
-    ], done);
-});
+gulp.task('build', ['build-static']);
 
 gulp.task('build-static', ['hash']);
 
