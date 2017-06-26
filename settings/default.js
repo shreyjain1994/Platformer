@@ -8,6 +8,8 @@ var path = require('path');
  * @property {string} url - The URL at which the root directory of the static resources is located.
  * @property {boolean} use - Whether to use express to serve the static resources.
  * @property {string} root - Path to the directory containing the static resources.
+ * @property {string} manifest - Path to the manifest of static files.
+ * @property {boolean} useManifest - Whether to use the manifest when generating URLs for static resources.
  */
 
 /**
@@ -60,7 +62,9 @@ module.exports = {
         path:'/static',
         url:'http://localhost:10100/static',
         use: true,
-        root: path.join(__dirname, '../static')
+        root: path.join(__dirname, '../static'),
+        manifest:path.join(__dirname, '../build/static/manifest.json'),
+        useManifest:false
     },
     logging: {
         name: 'platformer_game',
