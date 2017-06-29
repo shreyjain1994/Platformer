@@ -26,7 +26,7 @@
     "express-handlebars": "^3.0.0",
     "imgloader": "^1.0.0",
     "lodash.merge": "^4.6.0",
-    "settings": "git+ssh://git@github.com/shreyjain1994/node-settings.git",
+    "settings": "^0.1.1",
     "shortid": "^2.2.8",
     "url-join": "^2.0.2",
     "ws": "^1.1.1"
