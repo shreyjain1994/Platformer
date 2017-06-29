@@ -25,7 +25,7 @@ function docReady() {
 function leaveLobby() {
     var leave = confirm('Are you sure you want to leave the lobby?');
     if (leave){
-        displayLoader('Leaving lobby.');
+        displayLoader('Leaving lobby');
         socket.send(actions.LEAVE_LOBBY);
     }
     gameStarted=false;
@@ -33,7 +33,7 @@ function leaveLobby() {
 
 function joinLobby(event) {
     event.preventDefault();
-    displayLoader('Joining lobby.');
+    displayLoader('Joining lobby');
     var data = utils.serializeObject($(this));
     gameStarted=false;
     socket.send(actions.JOIN_LOBBY + ' ' + data.lobbyId + ' ' + data.username);
@@ -41,7 +41,7 @@ function joinLobby(event) {
 
 function displayLoader(message) {
     $("#loader").show();
-    $("#loaderMessage").html(message);
+    $("#loaderMessage").html(message.toUpperCase());
     $('#setup').hide();
     $('#controls').hide();
 }

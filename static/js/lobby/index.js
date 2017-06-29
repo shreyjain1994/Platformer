@@ -5,7 +5,7 @@ var errors = require('./gameErrors');
 var settings = require('../settings');
 
 //get loading of assets started as soon as possible
-var assets = require('./assets');
+var assets = require('./assets'); //todo:perhaps don't load assets until game starts since otherwise it is pointless burden on client
 
 /**
  * Websocket connection to the game server.
@@ -78,7 +78,7 @@ function createLobby(event) {
 function displayLoader(message) {
     $('#nonGame').show();
     $("#loader").show();
-    $("#loaderMessage").html(message);
+    $("#loaderMessage").html(message.toUpperCase());
     $('#setup').hide();
     $('#lobby').hide();
     $('#game').hide();

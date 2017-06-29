@@ -2,6 +2,10 @@
     padding:20px;
 }
 
+body{
+    background-color:#d0f4f7;
+}
+
 .toolbar{
     padding:10px 0;
 }
@@ -23,10 +27,6 @@ body{
 
 .center{
     text-align:center;
-}
-
-hr{
-    border-bottom: 1px dashed #337ab7;
 }
 
 #setup, #controls, #game, #lobby{
