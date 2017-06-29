@@ -14,14 +14,13 @@
 
 </head>
 <body>
-<div class="container">
+<div class="container" id="nonControls">
     <div id="loader">
         <div class="row center">
             <img src="{{static 'images/loader.gif'}}">
         </div>
         <div class="row center">
-            <p id="loaderMessage">Connecting to server.
-            </p>
+            <h3 id="loaderMessage"></h3>
         </div>
     </div>
     <div id="setup">
@@ -41,14 +40,11 @@
         </div>
 
     </div>
-    <div id="controls">
-        <div class="toolbar row">
-            <span class="icon icon-leave-lobby" title="Leave Lobby" id="leaveLobby"></span>
-        </div>
-        <div class="row">
-            <button class='button-primary u-full-width' id="jump">JUMP</button>
-        </div>
-    </div>
+</div>
+
+<div id="controls">
+    <button class="button-primary u-full-width" id="leaveLobby">Leave Lobby</button>
+    <button class='button-primary u-full-width' id="jump">JUMP</button>
 </div>
 </body>
 </html>

@@ -7,6 +7,7 @@ var $ = require('jquery');
 
 //get loading of assets started as soon as possible
 var assets = require('./assets'); //todo:perhaps don't load assets until game starts since otherwise it is pointless burden on client
+assets.load(utils.noop);
 
 /**
  * Websocket connection to the game server.
@@ -21,17 +22,19 @@ var game;
 
 var lobbyId;
 
+var gameDivId = 'screen';
+
 $(document).ready(docReady);
 
 function docReady() {
+    setGameScreenDimensions();
+    displayLoader('Connecting to server');
     handleWebsocket();
-    $("#createLobby").submit(createLobby);
-
     if (process.env.NODE_ENV === 'development') {
         $("body").keydown(handleKeys);
     }
-
-    $('#closeLobby').click(closeLobby)
+    $("#createLobby").submit(createLobby);
+    $('.closeLobby').click(closeLobby)
 }
 
 if (process.env.NODE_ENV === 'development') {
@@ -53,7 +56,8 @@ if (process.env.NODE_ENV === 'development') {
     function createFakeGame() {
         game = new Game({
             numberOfPlayers: 2,
-            divId: 'game'
+            divId: gameDivId,
+            onComplete: onGameComplete
         });
         game.addPlayer('foobar', 'shrey');
         game.addPlayer('foo', 'shrey1');
@@ -62,19 +66,25 @@ if (process.env.NODE_ENV === 'development') {
     }
 }
 
+/**
+ * Function to run once the game is completed.
+ */
+function onGameComplete(){
+    closeLobby();
+}
+
 function createLobby(event) {
     event.preventDefault();
     var data = utils.serializeObject($(this));
     var numberOfPlayers = parseInt(data.numberOfPlayers);
     game = new Game({
         numberOfPlayers: numberOfPlayers,
-        divId: 'game'
+        divId: gameDivId,
+        onComplete: onGameComplete
     });
     socket.send(actions.LOBBY_OPEN);
     displayLoader('Opening lobby');
 }
-
-//todo:need to allow closing of lobby
 
 function displayLoader(message) {
     $('#nonGame').show();
@@ -91,6 +101,8 @@ function displaySetup() {
     $('#loader').hide();
     $('#lobby').hide();
     $('#game').hide();
+    $('#createLobby')[0].reset();
+    $('#createLobby select')[0].focus();
 }
 
 function displayLobby() {
@@ -101,12 +113,26 @@ function displayLobby() {
     $('#game').hide();
 }
 
+function setGameScreenDimensions(){
+    var game = $('#game');
+    var screen = $('#screen');
+    var closeLobbyBtn = $('#game .closeLobby');
+
+    screen.height(game.height() - closeLobbyBtn.outerHeight(true));
+    screen.width(game.width());
+}
+
 function displayGame() {
     $('#nonGame').hide();
     $('#game').show();
+    setGameScreenDimensions();
 }
 
 function updateLobby() {
+
+    if (!game){
+        return
+    }
 
     var gameType = game.numberOfPlayers == 1 ? 'Single Player' : 'Multi Player';
     var playersMessage = game.playerUsernames().join('<br>');
@@ -120,8 +146,11 @@ function updateLobby() {
 }
 
 function closeLobby() {
-    displayLoader('Closing lobby');
-    socket.send(actions.LOBBY_CLOSED);
+    var close = confirm('Are you sure you want to close the lobby?');
+    if (close) {
+        displayLoader('Closing lobby');
+        socket.send(actions.LOBBY_CLOSED);
+    }
 }
 
 function handleWebsocket() {
@@ -159,8 +188,8 @@ function handleWebsocket() {
             lobbyId = id;
 
             if (process.env.NODE_ENV === 'development') {
-                createFakeGame();
-                displayGame();
+                //displayGame();
+                //createFakeGame();
             }
         }
         else if (action === actions.LOBBY_OPEN_ACCEPT) {
@@ -174,8 +203,8 @@ function handleWebsocket() {
                 socket.send(actions.JOIN_LOBBY_ACCEPT + ' ' + id);
                 if (game.currentNumberOfPlayers() === game.numberOfPlayers) {
                     socket.send(actions.GAME_STARTED);
-                    game.start();
                     displayGame();
+                    game.start();
                 }
             }
 
@@ -199,9 +228,13 @@ function handleWebsocket() {
             displaySetup();
         }
         else if (action === actions.PLAYER_DISCONNECT || action === actions.LEAVE_LOBBY) {
-            //todo: fix so that the player can't be removed if the game already started
-            game.removePlayer(id);
-            updateLobby();
+            if (game.started){
+                game.disconnectPlayer(id)
+            }
+            else{
+                game.removePlayer(id);
+                updateLobby();
+            }
         }
     };
 }

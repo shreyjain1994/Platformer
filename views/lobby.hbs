@@ -17,8 +17,7 @@
             <img src="{{static 'images/loader.gif'}}">
         </div>
         <div class="row center">
-            <h3 id="loaderMessage">CONNECTING TO SERVER
-            </h3>
+            <h3 id="loaderMessage"></h3>
         </div>
     </div>
     <div id="setup">
@@ -42,13 +41,14 @@
     </div>
 
     <div id="lobby">
-        <div class="toolbar row">
-            <span class="icon icon-leave-lobby" title="Close Lobby" id="closeLobby"></span>
+        <div class="row center">
+            <img src="{{static 'images/setup.png'}}">
         </div>
         <div class="row center">
             <h2 id="gameType"></h2>
-            <p>Connect at: <span id="playerUrl"></span></p>
-            <p>Lobby ID: <span id="lobbyId"></span></p>
+            <button class="button-primary center closeLobby">Close Lobby</button>
+            <h6>Connect at: <span id="playerUrl"></span></h6>
+            <h6>Lobby ID: <span id="lobbyId"></span></h6>
             <p>
                 <span id="currentNumberOfPlayers"></span> Players (<span id="maxNumberOfPlayers"></span> Max)
             </p>
@@ -60,6 +60,8 @@
     </div>
 </div>
 <div id="game">
+    <button class="button-primary center u-full-width closeLobby">Close Lobby</button>
+    <div id="screen"></div>
 </div>
 </body>
 </html>

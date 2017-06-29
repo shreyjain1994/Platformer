@@ -10,7 +10,4 @@ var manifest = [
 
 var loader = new IMGLoader(manifest);
 
-//start loading assets as soon as module loads
-loader.load(utils.noop);
-
 module.exports.load = loader.load.bind(loader);

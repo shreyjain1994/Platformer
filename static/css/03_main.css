@@ -6,19 +6,14 @@ body{
     background-color:#d0f4f7;
 }
 
-.toolbar{
-    padding:10px 0;
-}
-
-.toolbar span{
-    vertical-align:middle;
-}
-
-div#game{
-    position:relative;
+#controls, #game{
     box-sizing:border-box;
     height:100vh;
     width:100vw;
+}
+
+#screen{
+    position:relative;
 }
 
 body{

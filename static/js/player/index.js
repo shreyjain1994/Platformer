@@ -7,16 +7,14 @@ var socket;
 var gameStarted = false;
 var isTiltedRight = false;
 var isTitledLeft = false;
-var tiltCheckInterval = 250; //how often to update speed (in ms)
+var tiltCheckInterval = settings.player.tiltCheckInterval;
 
 $(document).ready(docReady);
 
 function docReady() {
-
+    displayLoader('connecting to server');
     handleWebsocket();
     $("#joinLobby").submit(joinLobby);
-
-    //todo: check to ensure the device supports the orientation API, otherwise display message that device isn't allowed
     window.addEventListener('deviceorientation', handleOrientation);
     changeSpeed();
     $("#jump").click(jump);
@@ -41,6 +39,7 @@ function joinLobby(event) {
 }
 
 function displayLoader(message) {
+    $('#nonControls').show();
     $("#loader").show();
     $("#loaderMessage").html(message.toUpperCase());
     $('#setup').hide();
@@ -48,17 +47,24 @@ function displayLoader(message) {
 }
 
 function displaySetup() {
+    $('#nonControls').show();
     $("#loader").hide();
     $('#setup').show();
     $('#controls').hide();
     setJoinLobbyResponse('');
     $("#joinLobby")[0].reset();
+    $("#joinLobby input")[0].focus();
 }
 
 function displayControls() {
-    $("#loader").hide();
-    $('#setup').hide();
-    $('#controls').show();
+    var controls = $('#controls');
+    var jump = $('#jump');
+    var leaveLobby = $('#leaveLobby');
+
+    $('#nonControls').hide();
+    controls.show();
+
+    jump.height(controls.height()-leaveLobby.outerHeight(true)-10);
 }
 
 function setJoinLobbyResponse(message) {

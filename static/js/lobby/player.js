@@ -4,10 +4,10 @@ var utils = require('../utils');
 var $ = require('jquery');
 
 var status = {
-    ALIVE: 'ALIVE', //player is alive and can move, jump, etc.
-    DISCONNECTED: 'DISCONNECTED', //player has disconnected, no controls will work
-    DEAD: 'DEAD', //player is dead and waiting to respawn before he can move,jump,etc
-    COMPLETED: 'COMPLETED' //player has finished the track
+    ALIVE: 'ALIVE', //player is alive, controls work
+    DISCONNECTED: 'DISCONNECTED', //player has disconnected, controls don't work
+    DEAD: 'DEAD', //player is dead, controls will work once player respawns
+    COMPLETED: 'COMPLETED' //player has finished the track, controls don't work
 };
 
 /**
@@ -236,6 +236,13 @@ Player.prototype.drawPlayer = function () {
 };
 
 /**
+ * Clears the player screen.
+ */
+Player.prototype.clearPlayer = function(){
+    this._clearScreen('player');
+};
+
+/**
  * Display a message to the notification screen.
  * @param {string} message - The message to display
  */
@@ -264,13 +271,20 @@ Player.prototype.drawNotification = function (message) {
 };
 
 /**
+ * Clears a screen.
+ * @param {string} screen - The name of the screen to clear.
+ * @private
+ */
+Player.prototype._clearScreen = function (screen) {
+    var ctx = this[screen].getContext('2d');
+    ctx.clearRect(0, 0, this.width, this.height);
+};
+
+/**
  * Clears the notification screen.
  */
 Player.prototype.clearNotification = function () {
-    var ctx = this.notification.getContext('2d');
-    var height = this.height;
-    var width = this.width;
-    ctx.clearRect(0, 0, width, height);
+    this._clearScreen('notification');
 };
 
 /**
@@ -298,6 +312,13 @@ Player.prototype.drawBackground = function (background) {
 };
 
 /**
+ * Clears the background screen.
+ */
+Player.prototype.clearBackground = function () {
+    this._clearScreen('background');
+};
+
+/**
  * Respawn the player after the player died.
  */
 Player.prototype.respawn = function () {
@@ -321,10 +342,6 @@ Player.prototype.respawn = function () {
     this.status = status.ALIVE;
     this.jumping = false;
     this.currentSprite = 2;
-
-    //draw new canvases
-    this.drawSpeed();
-    this.drawForeground();
 };
 
 /**
@@ -339,6 +356,8 @@ Player.prototype.died = function () {
         if (secondsTillReSpawn === 0) {
             this.clearNotification();
             this.respawn();
+            this.drawSpeed();
+            this.drawForeground();
         }
         else {
             this.drawNotification('Respawning in: ' + secondsTillReSpawn.toString());
@@ -396,7 +415,7 @@ Player.prototype.drawRank = function (rank) {
 };
 
 /**
- * Draw the username of the player on the HUD.
+ * Draw the username of the player.
  */
 Player.prototype.drawUsername = function () {
     var ctx = this.hud.getContext('2d');
@@ -413,7 +432,7 @@ Player.prototype.drawUsername = function () {
 };
 
 /**
- * Draw a border on the player screen.
+ * Draw a border.
  */
 Player.prototype.drawBorder = function () {
 
@@ -425,6 +444,13 @@ Player.prototype.drawBorder = function () {
     ctx.lineWidth = 1;
     ctx.strokeStyle = "#000";
     ctx.strokeRect(0, 0, width, height);
+};
+
+/**
+ * Clears the border screen.
+ */
+Player.prototype.clearBorder = function () {
+    this._clearScreen('border');
 };
 
 /**
@@ -470,13 +496,18 @@ Player.prototype.drawForeground = function () {
 };
 
 /**
+ * Clear the foreground screen.
+ */
+Player.prototype.clearForeground = function(){
+    this._clearScreen('foreground');
+};
+
+/**
  * Increase the speed of the player.
  */
 Player.prototype.increaseSpeed = function () {
-    //todo:should only be able to change speed when on ground
     if (this.status === status.ALIVE && this.speedX < this.maxSpeedX) {
         this.speedX++;
-        this.drawSpeed();
     }
 };
 
@@ -484,10 +515,8 @@ Player.prototype.increaseSpeed = function () {
  * Decrease the speed of the player.
  */
 Player.prototype.decreaseSpeed = function () {
-    //todo:should only be able to change speed when on ground
     if (this.status === status.ALIVE && this.speedX > 0) {
         this.speedX--;
-        this.drawSpeed();
     }
 };
 
@@ -508,9 +537,6 @@ Player.prototype.jump = function () {
  */
 Player.prototype.completed = function () {
     this.status = status.COMPLETED;
-    this.speedX = 0;
-    this.speedY = 0;
-    this.jumping = false;
     this.drawNotification('Finished');
     this.finishTime = new Date().getTime();
 };

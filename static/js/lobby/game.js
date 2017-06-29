@@ -16,15 +16,19 @@ var tilesInY = settings.game.tilesInY;
  * Create a new game.
  * @param {int} options.numberOfPlayers - The number of players to be in the game.
  * @param {string} options.divId - The ID of the div element within which the game will be drawn. Make sure to set the width and height of the div to the size of the game screen you want before creating the game. Also, the div must have a CSS position property of relative.
+ * @param {function} options.onComplete - The function to run once the game is complete.
  * @constructor
  */
 function Game(options) {
+
+    options = options || {};
 
     var div = $('div#' + options.divId);
 
     console.assert(options.numberOfPlayers <= 4 && options.numberOfPlayers >= 1, 'The game must have between 1 and 4 players.');
     console.assert(div.length > 0, 'No div element with the given ID was found. You must provide a valid ID.');
     console.assert(div.length < 2, 'Multiple div elements with the given ID were found. You must provide a unique ID.');
+    console.assert(typeof options.onComplete === 'function', 'onComplete must be a function.');
 
     /**
      * Map of player ids to the player objects.
@@ -32,6 +36,12 @@ function Game(options) {
      * @private
      */
     this._players = {};
+
+    /**
+     * User defined function to run once the game is completed.
+     * @type {Function}
+     */
+    this.onComplete = options.onComplete;
 
     /**
      * The number of players to be in the game.
@@ -221,7 +231,32 @@ Game.prototype._drawFrame = function (frame, players) {
 
     var newFrame = frame === 60 ? 1 : frame + 1;
 
-    window.requestAnimationFrame(this._drawFrame.bind(this, newFrame, players));
+    if (this.complete()) {
+        this._onComplete();
+    }
+    else {
+        window.requestAnimationFrame(this._drawFrame.bind(this, newFrame, players));
+    }
+};
+
+/**
+ * Function to run once the game has completed.
+ * @private
+ */
+Game.prototype._onComplete = function () {
+    var ranks = {
+        1: '1st',
+        2: '2nd',
+        3: '3rd',
+        4: '4th'
+    };
+    var players = this._playersArray();
+    var rankedPlayers = this._playerRanks(players);
+    rankedPlayers.forEach(function (player, i) {
+        player.drawRank(i + 1);
+        player.drawNotification(ranks[i + 1])
+    });
+    setTimeout(this.onComplete, 3000);
 };
 
 /**
@@ -241,6 +276,9 @@ Game.prototype._playerRanks = function (players) {
         var aCompleted = a.status === Player.status.COMPLETED;
         var bCompleted = b.status === Player.status.COMPLETED;
 
+        var aDisconnected = a.status === Player.status.DISCONNECTED;
+        var bDisconnected = b.status === Player.status.DISCONNECTED;
+
         if (aCompleted) {
             if (!bCompleted) {
                 return -1;
@@ -254,9 +292,25 @@ Game.prototype._playerRanks = function (players) {
                 }
             }
         }
+        if (aDisconnected) {
+            if (!bDisconnected) {
+                return 1;
+            }
+            else {
+                if (a.x > b.x) {
+                    return -1
+                }
+                else {
+                    return 1
+                }
+            }
+        }
         else {
             if (bCompleted) {
                 return 1;
+            }
+            else if (bDisconnected) {
+                return -1
             }
             else {
                 if (a.x > b.x) {
@@ -392,6 +446,33 @@ Game.prototype.removePlayer = function (id) {
 };
 
 /**
+ * Determines whether the entire game is finished.
+ * @returns {boolean}
+ */
+Game.prototype.complete = function () {
+    var players = this._playersArray();
+    for (var i = 0; i<players.length; i++){
+        var status = players[i].status;
+        if (status !== Player.status.COMPLETED && status !== Player.status.DISCONNECTED) {
+            return false;
+        }
+    }
+    return true;
+};
+
+/**
+ * When a player leaves the game after it has started.
+ * @param {string} id - The id of the player to disconnect.
+ */
+Game.prototype.disconnectPlayer = function (id) {
+    var player = this._players[id];
+    if (player) {
+        player.status = Player.status.DISCONNECTED;
+        player.drawNotification('DISCONNECTED');
+    }
+};
+
+/**
  * Get an array of the usernames of the players in the game.
  * @returns {string []}
  */
@@ -410,7 +491,11 @@ Game.prototype.playerUsernames = function () {
 Game.prototype.increaseSpeed = function (id) {
     var player = this._players[id];
     if (player) {
+        var oldSpeed = player.speedX;
         player.increaseSpeed();
+        if (player.speedX !== oldSpeed) {
+            player.drawSpeed();
+        }
     }
 };
 
@@ -421,7 +506,11 @@ Game.prototype.increaseSpeed = function (id) {
 Game.prototype.decreaseSpeed = function (id) {
     var player = this._players[id];
     if (player) {
+        var oldSpeed = player.speedX;
         player.decreaseSpeed();
+        if (player.speedX !== oldSpeed) {
+            player.drawSpeed();
+        }
     }
 };
 

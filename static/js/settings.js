@@ -11,5 +11,8 @@ module.exports = {
         minTrackLength: 100,
         maxTrackLength: 200,
         tilesInY: 8
+    },
+    player:{
+        tiltCheckInterval:250 //number of milliseconds to wait between speed updates
     }
 };
