@@ -1,6 +1,7 @@
 var actions = require('../../../lib/ws/actions');
 var utils = require('../utils');
 var settings = require('../settings');
+var $ = require('jquery');
 
 var socket;
 var gameStarted = false;
@@ -24,18 +25,18 @@ function docReady() {
 
 function leaveLobby() {
     var leave = confirm('Are you sure you want to leave the lobby?');
-    if (leave){
+    if (leave) {
         displayLoader('Leaving lobby');
         socket.send(actions.LEAVE_LOBBY);
     }
-    gameStarted=false;
+    gameStarted = false;
 }
 
 function joinLobby(event) {
     event.preventDefault();
     displayLoader('Joining lobby');
     var data = utils.serializeObject($(this));
-    gameStarted=false;
+    gameStarted = false;
     socket.send(actions.JOIN_LOBBY + ' ' + data.lobbyId + ' ' + data.username);
 }
 
@@ -117,7 +118,7 @@ function handleWebsocket() {
     };
 }
 
-function handleOrientation(event){
+function handleOrientation(event) {
     isTiltedRight = false;
     isTitledLeft = false;
     if (event.gamma >= 20) {

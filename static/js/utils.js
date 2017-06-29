@@ -1,3 +1,5 @@
+var $ = require('jquery');
+
 /**
  * Similar to jQuery serializeArray function except this will provide a key-value mapping of a form.
  * If the form has multiple inputs with the same name, only the last value will be provided.

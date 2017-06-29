@@ -3,6 +3,7 @@
 var merge = require('lodash.merge');
 var Tile = require('./tile');
 var utils = require('../utils');
+var $ = require('jquery');
 
 //tile name to location of tile in sprite-sheet, and other info. i.e. GRASS_LEFT is the first tile in the sprite-sheet
 var tiles = {

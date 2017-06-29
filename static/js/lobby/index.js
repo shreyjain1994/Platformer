@@ -3,6 +3,7 @@ var utils = require('../utils');
 var Game = require('./game');
 var errors = require('./gameErrors');
 var settings = require('../settings');
+var $ = require('jquery');
 
 //get loading of assets started as soon as possible
 var assets = require('./assets'); //todo:perhaps don't load assets until game starts since otherwise it is pointless burden on client

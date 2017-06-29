@@ -6,6 +6,7 @@ var merge = require('lodash.merge');
 var World = require('./world');
 var Tiles = require("./tiles");
 var settings = require('../settings');
+var $ = require('jquery');
 
 var minTrackLength = settings.game.minTrackLength;
 var maxTrackLength = settings.game.maxTrackLength;
@@ -287,7 +288,7 @@ Game.prototype._initializePlayer = function (player, playerNumber, generatedWorl
     //height of player screen
     var height = this.numberOfPlayers >= 2 ? Math.floor(this._height / 2) : this._height;
 
-    //tilesize for player screen
+    //tile-size for player screen
     var tileSize = Math.floor(height / tilesInY);
 
     //width of player screen

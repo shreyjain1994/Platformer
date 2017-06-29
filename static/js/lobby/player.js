@@ -1,6 +1,7 @@
 "use strict";
 
 var utils = require('../utils');
+var $ = require('jquery');
 
 var status = {
     ALIVE: 'ALIVE', //player is alive and can move, jump, etc.
@@ -138,7 +139,7 @@ function Player(options) {
      * Speed at which the player jumps in the y-direction.
      * @type {number}
      */
-    this.maxSpeedY= this._calculateMaxSpeedY();
+    this.maxSpeedY = this._calculateMaxSpeedY();
 
     /**
      * The width of this player's game screen.
@@ -200,18 +201,18 @@ function Player(options) {
  * @private
  * @returns {number}
  */
-Player.prototype._calculateMaxSpeedY = function(){
+Player.prototype._calculateMaxSpeedY = function () {
 
     //these quadratic function values were determined by simplifying the sum of arithmetic
     //sequence formula in order to ensure the player jumps fast enough to reach necessary jump height
-    var roots = utils.solveQuadraticEquation(this.speedYFactor/2, this.speedYFactor/2, -this.jumpHeight);
+    var roots = utils.solveQuadraticEquation(this.speedYFactor / 2, this.speedYFactor / 2, -this.jumpHeight);
 
     //taking the ceil of positive root, so player can jump at least to jump height
     //in practice, this will usually result in player jumping a little higher than desired jump height
-    if (roots[0]>0){
+    if (roots[0] > 0) {
         return Math.ceil(roots[0]);
     }
-    else{
+    else {
         return Math.ceil(roots[1]);
     }
 };
@@ -380,10 +381,10 @@ Player.prototype.drawDistance = function () {
 Player.prototype.drawRank = function (rank) {
 
     var rankToWord = {
-        1:'1st',
-        2:'2nd',
-        3:'3rd',
-        4:'4th'
+        1: '1st',
+        2: '2nd',
+        3: '3rd',
+        4: '4th'
     };
 
     var ctx = this.hud.getContext('2d');

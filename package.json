@@ -26,6 +26,7 @@
     "express-handlebars": "^3.0.0",
     "handlebars-static": "^1.0.0",
     "imgloader": "^1.0.0",
+    "jquery": "^3.2.1",
     "lodash.merge": "^4.6.0",
     "settings": "^0.1.1",
     "shortid": "^2.2.8",
