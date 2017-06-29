@@ -1,5 +1,5 @@
 var actions = require('../../../lib/ws/actions');
-var utils = require('../../../lib/utils');
+var utils = require('../utils');
 var settings = require('../settings');
 
 var socket;

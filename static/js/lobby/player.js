@@ -1,6 +1,6 @@
 "use strict";
 
-var utils = require('../../../lib/utils');
+var utils = require('../utils');
 
 var status = {
     ALIVE: 'ALIVE', //player is alive and can move, jump, etc.

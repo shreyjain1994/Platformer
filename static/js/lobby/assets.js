@@ -1,6 +1,6 @@
 var staticLinks = require('../static');
 var IMGLoader = require('imgloader');
-var utils = require('../../../lib/utils');
+var utils = require('../utils');
 
 var manifest = [
     {id: 'background', src: staticLinks('images/background.png')},

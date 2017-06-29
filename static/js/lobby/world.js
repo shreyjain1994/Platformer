@@ -1,6 +1,6 @@
 "use strict";
 
-var utils = require('../../../lib/utils');
+var utils = require('../utils');
 var merge = require('lodash.merge');
 
 /**

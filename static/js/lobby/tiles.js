@@ -2,7 +2,7 @@
 
 var merge = require('lodash.merge');
 var Tile = require('./tile');
-var utils = require('../../../lib/utils');
+var utils = require('../utils');
 
 //tile name to location of tile in sprite-sheet, and other info. i.e. GRASS_LEFT is the first tile in the sprite-sheet
 var tiles = {

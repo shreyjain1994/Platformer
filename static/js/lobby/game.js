@@ -1,6 +1,6 @@
 var Player = require('./player');
 var errors = require('./gameErrors');
-var utils = require('../../../lib/utils');
+var utils = require('../utils');
 var assets = require('./assets');
 var merge = require('lodash.merge');
 var World = require('./world');
