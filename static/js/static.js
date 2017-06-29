@@ -7,7 +7,6 @@
  * var link = staticLinks('/images/foo.jpeg');
  */
 
-var utils = require('../../lib/utils');
+var handlebarsStatic = require('handlebars-static');
 var settings = require('./settings');
-
-module.exports = utils.staticLinks(settings.static.url);
+module.exports = handlebarsStatic(settings.static.url);

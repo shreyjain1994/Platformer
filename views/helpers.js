@@ -1,9 +1,10 @@
+var handlebarsStatic = require('handlebars-static');
 var settings = require('../settings');
-var utils = require('../lib/utils');
 
-var args = [settings.static.url];
+//use manifest when required
+var staticOptions = {};
 if (settings.static.useManifest){
-    args.push(require(settings.static.manifest))
+    staticOptions.manifest = require(settings.static.manifest);
 }
-
-module.exports.static = utils.staticLinks.apply(null, args);
+//used to get correct links to static resources
+module.exports.static = handlebarsStatic(settings.static.url, staticOptions);
